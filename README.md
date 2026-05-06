@@ -6,7 +6,7 @@ Một ứng dụng ghi chú thông minh được phát triển bằng Flutter, h
 
 ## Tính năng nổi bật 
 **Quản lý ghi chú:** Dễ dàng tạo, xem, chỉnh sửa và xóa ghi chú.
-<img width="849" height="1864" alt="image" src="https://github.com/user-attachments/assets/4126ca4e-2ab4-4ff1-9edd-7e52bad1587c" />
+<img width=449" height="1464" alt="image" src="https://github.com/user-attachments/assets/4126ca4e-2ab4-4ff1-9edd-7e52bad1587c" />
 
 * **Rich Text Editor:** Hỗ trợ định dạng văn bản (in đậm, in nghiêng, gạch chân...) nhờ tích hợp `flutter_quill`.
   <img width="849" height="1864" alt="image" src="https://github.com/user-attachments/assets/b33749b2-3a96-41a4-9eb4-2d361155fdf8" />
