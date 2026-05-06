@@ -25,7 +25,7 @@ class _NoteEditorScreenState extends State<NoteEditorScreen> {
     super.initState();
     _titleController = TextEditingController(text: widget.note?.title ?? '');
     
-    // Khởi tạo trình soạn thảo Quill
+    
     if (widget.note != null && widget.note!.content.isNotEmpty) {
       try {
         final doc = quill.Document.fromJson(jsonDecode(widget.note!.content));
@@ -45,7 +45,6 @@ class _NoteEditorScreenState extends State<NoteEditorScreen> {
     if (!_hasUnsavedChanges) setState(() => _hasUnsavedChanges = true);
   }
 
-  // Chức năng chèn ảnh trực tiếp vào Note
   Future<void> _insertImage() async {
     final ImagePicker picker = ImagePicker();
     final XFile? image = await picker.pickImage(source: ImageSource.gallery);
@@ -57,11 +56,10 @@ class _NoteEditorScreenState extends State<NoteEditorScreen> {
   }
 
   void _saveNote() {
-    if (_titleController.text.isEmpty) return; // Bắt buộc có tiêu đề
+    if (_titleController.text.isEmpty) return; 
 
     final provider = Provider.of<NoteProvider>(context, listen: false);
     final now = DateTime.now();
-    // Chuyển nội dung phong phú (ảnh, đậm nghiêng) thành JSON
     final contentJson = jsonEncode(_quillController.document.toDelta().toJson());
 
     if (widget.note == null) {
@@ -80,31 +78,30 @@ class _NoteEditorScreenState extends State<NoteEditorScreen> {
     Navigator.pop(context);
   }
 
-  // --- DIALOG THOÁT KHI CHƯA LƯU ---
   Future<bool> _onWillPop() async {
     if (!_hasUnsavedChanges) return true;
     final result = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Unsaved Changes'),
-        content: const Text('Do you want to save changes before leaving?'),
-        // Giảm bớt khoảng cách lề của actions để có thêm không gian
+        title: const Text('Thay đổi chưa được lưu'),
+        content: const Text('Bạn có muốn lưu lại các thay đổi trước khi rời đi không?'),
+        
         actionsPadding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
         actions: [
-          // Dùng Row kết hợp Expanded để ÉP các nút luôn nằm trên 1 hàng ngang
+         
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Expanded(
                 child: TextButton(
                   onPressed: () => Navigator.pop(context, false), 
-                  child: const Text('Discard', style: TextStyle(color: Colors.red, fontSize: 13), overflow: TextOverflow.ellipsis),
+                  child: const Text('Bỏ qua', style: TextStyle(color: Colors.red, fontSize: 13), overflow: TextOverflow.ellipsis),
                 ),
               ),
               Expanded(
                 child: TextButton(
                   onPressed: () => Navigator.pop(context, null), 
-                  child: const Text('Cancel', style: TextStyle(fontSize: 13), overflow: TextOverflow.ellipsis),
+                  child: const Text('Hủy', style: TextStyle(fontSize: 13), overflow: TextOverflow.ellipsis),
                 ),
               ),
               Expanded(
@@ -117,7 +114,7 @@ class _NoteEditorScreenState extends State<NoteEditorScreen> {
                     backgroundColor: const Color(0xFF3F37C9),
                     padding: const EdgeInsets.symmetric(vertical: 8), // Ép padding nhỏ lại
                   ),
-                  child: const Text('Save', style: TextStyle(color: Colors.white, fontSize: 13), overflow: TextOverflow.ellipsis),
+                  child: const Text('Lưu', style: TextStyle(color: Colors.white, fontSize: 13), overflow: TextOverflow.ellipsis),
                 ),
               ),
             ],
@@ -125,8 +122,8 @@ class _NoteEditorScreenState extends State<NoteEditorScreen> {
         ],
       ),
     );
-    if (result == false) return true; // Cho phép thoát không lưu
-    return false; // Hủy thao tác back
+    if (result == false) return true; 
+    return false;
   }
   @override
   Widget build(BuildContext context) {
@@ -178,20 +175,18 @@ class _NoteEditorScreenState extends State<NoteEditorScreen> {
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 24.0),
-                // --- ĐÃ FIX CÚ PHÁP QUILL EDITOR CHO BẢN 11 ---
+              
                 child: quill.QuillEditor.basic(
                   controller: _quillController,
                   config: const quill.QuillEditorConfig(),
                 ),
               ),
             ),
-            // Thanh công cụ bên dưới (Toolbar)
             Container(
               padding: const EdgeInsets.all(8),
               color: Colors.grey.shade50,
               child: SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
-                // --- ĐÃ FIX CÚ PHÁP QUILL TOOLBAR CHO BẢN 11 ---
                 child: quill.QuillSimpleToolbar(
                   controller: _quillController,
                   config: quill.QuillSimpleToolbarConfig(
@@ -202,10 +197,10 @@ class _NoteEditorScreenState extends State<NoteEditorScreen> {
                     showSubscript: false, showSuperscript: false,
                     customButtons: [
                    quill.QuillToolbarCustomButtonOptions(
-                    icon: const Icon(Icons.image), // Thêm const Icon()
-    onPressed: _insertImage,
-  )
-]
+                    icon: const Icon(Icons.image), 
+                     onPressed: _insertImage,
+                       )
+                      ]
                   ),
                 ),
               ),

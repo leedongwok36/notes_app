@@ -21,7 +21,7 @@ class _HomePageState extends State<HomePage> {
     Navigator.push(context, MaterialPageRoute(builder: (context) => NoteEditorScreen(note: note)));
   }
 
-  // --- HÌNH 5: DIALOG XÁC NHẬN XÓA ---
+ 
   void _showDeleteDialog(Note note) {
     showDialog(
       context: context,
@@ -45,8 +45,8 @@ class _HomePageState extends State<HomePage> {
             style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFFC62828), shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8))),
             onPressed: () {
               Provider.of<NoteProvider>(context, listen: false).deleteNote(note.id!);
-              Navigator.pop(context); // Tắt dialog
-              Navigator.pop(context); // Tắt bottom sheet
+              Navigator.pop(context); 
+              Navigator.pop(context); 
             },
             child: const Text('Delete', style: TextStyle(color: Colors.white)),
           ),
@@ -55,7 +55,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  // --- HÌNH 4: BOTTOM SHEET SETTINGS (Long Press) ---
+  
   void _showNoteSettings(Note note) {
     String currentColorHex = note.colorHex ?? '';
     List<String> currentTags = note.tags?.isNotEmpty == true ? note.tags!.split(',') : [];
@@ -186,7 +186,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  // --- GIAO DIỆN CHÍNH (HÌNH 1) ---
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -204,7 +204,7 @@ class _HomePageState extends State<HomePage> {
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: TextField(
               decoration: InputDecoration(
-                hintText: 'Search your thoughts...',
+                hintText: 'tìm kiếm......',
                 prefixIcon: const Icon(Icons.search, color: Colors.grey),
                 filled: true,
                 fillColor: Colors.white,
@@ -217,7 +217,7 @@ class _HomePageState extends State<HomePage> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text('Recent', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+                const Text('Gần đây', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
                 Row(
                   children: [
                     Chip(label: const Text('Personal', style: TextStyle(color: Colors.indigo, fontSize: 12)), backgroundColor: Colors.indigo.shade50, side: BorderSide.none),

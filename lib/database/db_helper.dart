@@ -10,7 +10,7 @@ class DatabaseHelper {
 
   Future<Database> get database async {
     if (_database != null) return _database!;
-    _database = await _initDB('notes_v2.db'); // Đổi tên file db để tạo mới
+    _database = await _initDB('notes_v2.db'); 
     return _database!;
   }
 
